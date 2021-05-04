@@ -34,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
         listSQL = (ListView)findViewById(R.id.listSQL);
         btnDo = (Button)findViewById(R.id.btnDo);
-        //editValue = (EditText)findViewById(R.id.editValue);
         editSQL = (EditText)findViewById(R.id.editSQL);
 
         item++;
-        result = "INSERT INTO table02 (num, data)values("+item+", '項目名稱1')";
+        detail = "項目名稱" + item;
+
+        result = "INSERT INTO table02 (num, data)values("+item+", '"+detail+"')";
         editSQL.setText(result);
 
         // 建立SQLite 資料庫的實體檔案
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //String INSERT = "INSERT INTO table01 (num, data)values(123, '項目名稱1')";
                 db.execSQL(INSERT);
+
                 getAll();
                 item++;
                 detail = "項目名稱" + item;

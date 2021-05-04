@@ -1,2 +1,3 @@
+include ':sqlitedemo'
 include ':app'
 rootProject.name = "App_inTaipei"
