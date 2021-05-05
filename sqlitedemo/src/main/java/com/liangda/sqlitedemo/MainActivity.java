@@ -7,11 +7,14 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +55,21 @@ public class MainActivity extends AppCompatActivity {
             cursor = getAll();
             UpdateAdapter(cursor);
         }
+
+        listView.setOnItemClickListener(listViewOICL);
     }
+
+    private AdapterView.OnItemClickListener listViewOICL = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Cursor c = get(id);
+            String s = "position = " + position + "\r\n" +
+                    "id = " + id + "\r\n" +
+                    "name" + c.getString(1) + "\r\n" +
+                    "price" + c.getInt(2);
+            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     public void UpdateAdapter(Cursor cursor) {
         if(cursor != null && cursor.getCount() >= 0) {
@@ -68,10 +85,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public Cursor getAll() {
-        Cursor cursor = db.rawQuery("SELECT * FROM table01", null);
+    public Cursor get(long rowId) throws SQLException {
+        Cursor cursor = db.rawQuery("SELECT * FROM table01 WHERE _id="+rowId, null);
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+        } else {
+            Toast.makeText(getApplicationContext(), "查無此資料！", Toast.LENGTH_SHORT).show();
+        }
         return cursor;
     }
+
+    public Cursor getAll() {
+        Cursor cursor = db.rawQuery("SELECT * FROM table01", null);
+        //Cursor cursor = db.rawQuery("SELECT _id || '.' || name pname, price FROM table01", null);
+        return cursor;
+    }
+
 
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
