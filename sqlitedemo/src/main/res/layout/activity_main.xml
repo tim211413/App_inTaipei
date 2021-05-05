@@ -16,13 +16,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" 查詢 :   "
-            android:textSize="26dp"/>
+            android:textSize="26dp" />
 
         <EditText
             android:id="@+id/editInput"
-            android:inputType="numberSigned"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
 
     </LinearLayout>
 
@@ -33,25 +33,64 @@
 
         <Button
             android:id="@+id/btnSelect"
-            android:text="查詢"
-            android:textSize="26dp"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="查詢"
+            android:textSize="26dp" />
 
         <Button
             android:id="@+id/btnSelectAll"
-            android:text="查詢全部"
-            android:textSize="26dp"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="查詢全部"
+            android:textSize="26dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="第一筆"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="下一筆"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnPrev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="上一筆"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnLast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="最後一筆"
+            android:textSize="14dp" />
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

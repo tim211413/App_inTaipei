@@ -25,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
             "CREATE TABLE table01(_id INTEGER PRIMARY KEY, name TEXT , price INTEGER)";
 
     private Button btnSelect, btnSelectAll;
+    private Button btnFirst, btnNext, btnPrev, btnLast;
     private EditText editInput;
     private ListView listView;
     Cursor cursor;
+    int posNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,17 @@ public class MainActivity extends AppCompatActivity {
         btnSelectAll = (Button)findViewById(R.id.btnSelectAll);
         editInput = (EditText)findViewById(R.id.editInput);
         listView = (ListView)findViewById(R.id.listView);
+        btnFirst = (Button)findViewById(R.id.btnFirst);
+        btnNext = (Button)findViewById(R.id.btnNext);
+        btnPrev = (Button)findViewById(R.id.btnPrev);
+        btnLast = (Button)findViewById(R.id.btnLast);
 
         btnSelect.setOnClickListener(listener);
         btnSelectAll.setOnClickListener(listener);
+        btnFirst.setOnClickListener(listener);
+        btnNext.setOnClickListener(listener);
+        btnPrev.setOnClickListener(listener);
+        btnLast.setOnClickListener(listener);
 
         db = openOrCreateDatabase("db2.db", MODE_PRIVATE, null);
 
@@ -75,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
         if(cursor != null && cursor.getCount() >= 0) {
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                     this,
-                    android.R.layout.simple_list_item_2,
+                    R.layout.mylayout,
                     cursor,
-                    new String[] {"name", "price"},
-                    new int[] {android.R.id.text1, android.R.id.text2},
+                    new String[] {"_id", "name", "price"},
+                    new int[] {R.id.txtId, R.id.txtName, R.id.txtPrice},
                     0
             ) ;
             listView.setAdapter(adapter);
@@ -110,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btnSelect:
                         long id = Integer.parseInt(editInput.getText().toString());
                         cursor = getOne(id);
+                        posNow = cursor.getInt(0);
                         UpdateAdapter(cursor);
                         editInput.selectAll();
                         break;
@@ -117,6 +128,27 @@ public class MainActivity extends AppCompatActivity {
                         cursor = getAll();
                         UpdateAdapter(cursor);
                         editInput.setText("");
+                        break;
+                    case R.id.btnNext:
+                        posNow++;
+                        cursor = get(posNow);
+                        UpdateAdapter(cursor);
+                        break;
+                    case R.id.btnFirst:
+                        posNow = 1;
+                        cursor = get(posNow);
+                        UpdateAdapter(cursor);
+                        break;
+                    case R.id.btnPrev:
+                        posNow --;
+                        cursor = get(posNow);
+                        UpdateAdapter(cursor);
+                        break;
+                    case R.id.btnLast:
+                        Cursor cursor = getAll();
+                        posNow = cursor.getCount();
+                        cursor = get(posNow);
+                        UpdateAdapter(cursor);
                         break;
                 }
             } catch (Exception e) {
